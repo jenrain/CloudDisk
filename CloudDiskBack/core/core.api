@@ -1,0 +1,260 @@
+@server (
+	group: base
+)
+service core-api {
+	// 登录
+	@handler UserLogin
+	post /user/login(LoginRequest) returns (LoginResponse)
+	// 验证码发送
+	@handler MailCodeSendRegister
+	post /user/code/send/register(MailCodeSendRequest) returns (MailCodeSendResponse)
+	// 用户注册
+	@handler UserRegister
+	post /user/register(UserRegisterRequest) returns (UserRegisterResponse)
+	// 获取资源详情
+	@handler ShareBasicDetail
+	post /share/basic/detail(ShareBasicDetailRequest) returns(ShareBasicDetailResponse)
+}
+
+// 登录
+type LoginRequest {
+	Name     string `json:"name"`
+	Password string `json:"password"`
+}
+
+type LoginResponse {
+	Token        string `json:"token"`
+	RefreshToken string `json:"refresh_token"`
+	Success      bool   `json:"success"`
+}
+// 验证码发送
+type MailCodeSendRequest {
+	Email string `json:"email"`
+}
+type MailCodeSendResponse {
+	Success bool `json:"success"`
+}
+// 用户注册
+type UserRegisterRequest {
+	Name     string `json:"name"`
+	Password string `json:"password"`
+	Email    string `json:"email"`
+	Code     string `json:"code"`
+}
+type UserRegisterResponse {
+	Success bool `json:"success"`
+}
+// 获取资源详情
+type ShareBasicDetailRequest {
+	Identity string `json:"identity"`
+}
+type ShareBasicDetailResponse {
+	RepositoryIdentity string `json:"repository_identity"`
+	Name               string `json:"name"`
+	Ext                string `json:"ext"`
+	Size               int64  `json:"size"`
+	Path               string `json:"path"`
+}
+
+@server (
+	group: user
+	middleware: Auth
+)
+service core-api {
+	// 用户详情
+	@handler UserDetail
+	post /user/detail(UserDetailRequest) returns (UserDetailResponse)
+	// 修改名称
+	@handler UserNameUpdate
+	put /user/name/update(UserNameUpdateRequest) returns(UserNameUpdateResponse)
+}
+
+// 用户详情
+type UserDetailRequest {
+}
+
+type UserDetailResponse {
+	Name  string `json:"name"`
+	Email string `json:"email"`
+}
+// 修改名称
+type UserNameUpdateRequest {
+	NewName string `json:"name"`
+}
+type UserNameUpdateResponse {
+	Success bool `json:"success"`
+}
+
+@server (
+	group: file
+	middleware: Auth
+)
+service core-api {
+	// 文件上传
+	@handler FileUpload
+	post /file/upload(FileUploadRequest) returns(FileUploadResponse)
+	// 用户文件列表
+	@handler UserFileList
+	post /user/file/list(UserFileListRequest) returns(UserFileListResponse)
+	// 获取文件的详细信息
+	@handler GetFileDetail
+	post /file/detail/get(GetFileDetailRequest) returns(GetFileDetailResponse)
+	// 获取该用户的所有文件夹列表
+	@handler UserFolderList
+	post /user/folder/list(UserFolderListRequest) returns(UserFolderListResponse)
+	// 用户文件名修改
+	@handler UserFileNameUpdate
+	post /user/file/update(UserFileNameUpdateRequest) returns(UserFileNameUpdateResponse)
+	// 用户文件夹创建
+	@handler UserFolderCreate
+	post /user/folder/create(UserFolderCreateRequest) returns(UserFolderCreateResponse)
+	// 用户文件删除
+	@handler UserFileDelete
+	delete /user/file/delete(UserFileDeleteRequest) returns(UserFileDeleteResponse)
+	// 用户文件移动
+	@handler UserFileMove
+	put /user/file/move(UserFileMoveRequest) returns(UserFileMoveResponse)
+	// 获取当前文件的parentId
+	@handler GetCurrentParentId
+	post /file/parentid/get(GetCurrentParentIdRequest) returns(GetCurrentParentIdResponse)
+	// 文件分片上传前的准备
+	@handler FileUploadPrepare
+	post /file/upload/prepare(FileUploadPrepareRequest) returns(FileUploadPrepareResponse)
+	// 文件分片上传
+	@handler FileUploadChunk
+	post /file/upload/chunk(FileUploadChunkRequest) returns(FileUploadChunkResponse)
+	// 文件分片上传完成
+	@handler FileUploadChunkComplete
+	post /file/upload/chunk/complete(FileUploadChunkCompleteRequest) returns(FileUploadChunkCompleteResponse)
+}
+
+// 文件上传
+type FileUploadRequest {
+	ParentId int    `json:"parent_id,optional"`
+	Hash     string `json:"hash,optional"`
+	Name     string `json:"name,optional"`
+	Ext      string `json:"ext,optional"`
+	Size     int64  `json:"size,optional"`
+	Path     string `json:"path,optional"`
+}
+type FileUploadResponse {
+	Identity string `json:"identity"`
+	Ext      string `json:"ext"`
+	Name     string `json:"name"`
+	Success  bool   `json:"success"`
+}
+// 用户文件列表
+type UserFileListRequest {
+	// parentId
+	Id int64 `json:"id,optional"`
+}
+type UserFileListResponse {
+	FilesList  []*UserFile `json:"files_list,optional"`
+	FolderList []*UserFile `json:"folder_list,optional"`
+	FilesNum   int         `json:"files_num"`
+	FolderNum  int         `json:"folder_num"`
+	Success    bool        `json:"success"`
+}
+type UserFile {
+	Id                 int64  `json:"id"`
+	ParentId           int64  `json:"parent_id"`
+	Identity           string `json:"identity"`
+	RepositoryIdentity string `json:"repository_identity"`
+	Name               string `json:"name"`
+	Ext                string `json:"ext"`
+	Path               string `json:"path"`
+	Size               int64  `json:"size"`
+	FileType           string `json:"filetype"`
+}
+// 获取文件详细信息
+type GetFileDetailRequest {
+	Id int `json:"id"`
+}
+type GetFileDetailResponse {
+	Name       string `json:"name"`
+	Size       int64  `json:"size"`
+	FileType   string `json:"filetype"`
+	CreateTime string `json:"create_time"`
+	UpdateTime string `json:"update_time"`
+	Success    bool   `json:"success"`
+}
+// 获取用户所有的文件夹
+type UserFolderListRequest {
+}
+type UserFolderListResponse {
+	FolderList []*UserFile `json:"folder_list"`
+	Success    bool        `json:"success"`
+}
+// 用户文件名修改
+type UserFileNameUpdateRequest {
+	Identity string `json:"identity"`
+	Name     string `json:"name"`
+}
+type UserFileNameUpdateResponse {
+	Success bool   `json:"success"`
+	Name    string `json:"name"`
+}
+// 用户文件夹创建
+type UserFolderCreateRequest {
+	ParentId int64  `json:"parent_id"`
+	Name     string `json:"name"`
+}
+type UserFolderCreateResponse {
+	Identity string `json:"identity"`
+	Success  bool   `json:"success"`
+}
+// 用户文件删除
+type UserFileDeleteRequest {
+	Identity string `json:"identity"`
+}
+type UserFileDeleteResponse {
+	Success bool `json:"success"`
+}
+// 用户文件移动
+type UserFileMoveRequest {
+	Id       int `json:"id"`
+	ParentId int `json:"parent_id"`
+}
+type UserFileMoveResponse {
+	Success bool `json:"success"`
+}
+// 获取当前文件的ParentId
+type GetCurrentParentIdRequest {
+	Id int `json:"id"`
+}
+type GetCurrentParentIdResponse {
+	ParentId int  `json:"parent_id"`
+	Success  bool `json:"success"`
+}
+// 文件上传前的准备
+type FileUploadPrepareRequest {
+	MD5  string `json:"md5"`
+	Name string `json:"name"`
+	Ext  string `json:"ext"`
+}
+type FileUploadPrepareResponse {
+	Identity string `json:"identity"`
+	UploadId string `json:"upload_id"`
+	Name     string `json:"name"`
+}
+// 文件分片上传
+type FileUploadChunkRequest {
+	Name       string `json:"name"`
+	UploadId   string `json:"upload_id"`
+	PartNumber int    `json:"part_number"`
+}
+type FileUploadChunkResponse {
+	Etag string `json:"etag"` // MD5
+}
+// 文件分片上传完成
+type FileUploadChunkCompleteRequest {
+	Name       string      `json:"name"`
+	UploadId   string      `json:"upload_id"`
+	CosObjects []CosObject `json:"cos_objects"`
+}
+type FileUploadChunkCompleteResponse {
+}
+type CosObject {
+	PartNumber int    `json:"part_number"`
+	ETag       string `json:"etag"`
+}

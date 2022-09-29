@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="ALL" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c1a5f771-de8e-43a3-bdcf-c8d19f5d02b3" name="变更" comment="完成对文件的CRUD">
+      <change beforePath="$PROJECT_DIR$/../CloudDiskFront/.gitignore" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Go File" />
+      </list>
+    </option>
+  </component>
+  <component name="GOROOT" url="file://$PROJECT_DIR$/../../../1SDK/GoSDK/go1.17.2" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="GoLibraries">
+    <option name="indexEntireGoPath" value="false" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2Eq89WYj4gyIwhfHe2hXtC3F6VV" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "DefaultGoTemplateProperty": "Go File",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.go.format.on.save.advertiser.fired": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
+    "RunOnceActivity.go.watchers.conflict.with.on.save.actions.check.performed": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "go.import.settings.migrated": "true",
+    "last_opened_file_path": "D:/1Project/GoProject/CloudDisk",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\1Project\GoProject\CloudDisk\CloudDisk\core\test" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\1Project\GoProject\CloudDisk\CloudDisk\core\upload" />
+      <recent name="D:\1Project\GoProject\CloudDisk\CloudDisk\core\internal\logic\file" />
+      <recent name="D:\1Project\GoProject\CloudDisk\CloudDisk\core\internal\logic\user" />
+      <recent name="D:\1Project\GoProject\CloudDisk\CloudDisk\core\internal\logic\base" />
+      <recent name="D:\1Project\GoProject\CloudDisk\CloudDisk\core\internal\handler\file" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Go 测试.core/test 中的 TestUploadFile">
+    <configuration name="core/test 中的 TestInitPartUpload" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="CloudDisk" />
+      <working_directory value="$PROJECT_DIR$/core/test" />
+      <root_directory value="$PROJECT_DIR$/core" />
+      <kind value="PACKAGE" />
+      <package value="core/test" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestInitPartUpload\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="core/test 中的 TestSeparateFile" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="CloudDisk" />
+      <working_directory value="$PROJECT_DIR$/core/test" />
+      <root_directory value="$PROJECT_DIR$/core" />
+      <kind value="PACKAGE" />
+      <package value="core/test" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestSeparateFile\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="core/test 中的 TestUploadFile" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="CloudDisk" />
+      <working_directory value="$PROJECT_DIR$/core/test" />
+      <root_directory value="$PROJECT_DIR$/core" />
+      <kind value="PACKAGE" />
+      <package value="core/test" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestUploadFile\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="core/test 中的 TestUuid" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="CloudDisk" />
+      <working_directory value="$PROJECT_DIR$/core/test" />
+      <root_directory value="$PROJECT_DIR$/core" />
+      <kind value="PACKAGE" />
+      <package value="core/test" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestUuid\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="uuid_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="CloudDisk" />
+      <working_directory value="$PROJECT_DIR$/core/test" />
+      <root_directory value="$PROJECT_DIR$/core" />
+      <kind value="FILE" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/core/test/uuid_test.go" />
+      <framework value="gotest" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go 测试.core/test 中的 TestUploadFile" />
+        <item itemvalue="Go 测试.uuid_test.go" />
+        <item itemvalue="Go 测试.core/test 中的 TestUuid" />
+        <item itemvalue="Go 测试.core/test 中的 TestInitPartUpload" />
+        <item itemvalue="Go 测试.core/test 中的 TestSeparateFile" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.sh" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="上传文件的Handler" />
+    <MESSAGE value="上传文件业务" />
+    <MESSAGE value="README文档" />
+    <MESSAGE value="路由" />
+    <MESSAGE value="定义一些工具方法" />
+    <MESSAGE value="定义各种类型的Request和Response" />
+    <MESSAGE value="用户个人信息业务" />
+    <MESSAGE value="发送邮箱验证码业务" />
+    <MESSAGE value="公共存储池结构体" />
+    <MESSAGE value="配置依赖" />
+    <MESSAGE value="用户登录逻辑" />
+    <MESSAGE value="用户注册逻辑" />
+    <MESSAGE value="实现用户文件关联存储" />
+    <MESSAGE value="实现获取用户文件列表" />
+    <MESSAGE value="实现修改文件名" />
+    <MESSAGE value="创建文件夹" />
+    <MESSAGE value="实现文件删除" />
+    <MESSAGE value="实现文件移动" />
+    <MESSAGE value="创建文件分享记录" />
+    <MESSAGE value="完成保存用户分享的文件" />
+    <MESSAGE value="刷新token" />
+    <MESSAGE value="测试文件分片、合并以及校验" />
+    <MESSAGE value="完成上传前的准备：使用秒传还是分片上传" />
+    <MESSAGE value="完成分片上传" />
+    <MESSAGE value="完成对文件的CRUD" />
+    <option name="LAST_COMMIT_MESSAGE" value="完成对文件的CRUD" />
+  </component>
+  <component name="VgoProject">
+    <settings-migrated>true</settings-migrated>
+  </component>
+</project>
