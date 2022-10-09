@@ -28,7 +28,7 @@ func NewUserLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UserLog
 func (l *UserLoginLogic) UserLogin(req *types.LoginRequest) (resp *types.LoginResponse, err error) {
 	// 从数据库中查询用户
 	user := &models.UserBasic{}
-	err = l.svcCtx.DB.Where("name = ? AND password = ?", req.Name, tools.MD5(req.Password)).Find(user).Error
+	err = l.svcCtx.DB.Where("name = ? AND password = ?", req.Name, tools.StringToMD5(req.Password)).Find(user).Error
 	if err != nil {
 		//err = errors.New("查询用户信息失败")
 		return nil, errorx.NewDefaultError("查询用户信息失败")

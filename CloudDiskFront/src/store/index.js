@@ -48,6 +48,8 @@ export default new Vuex.Store({
     currentParentId: 0,
     // 上一个目录的parentId
     lastParentId: 0,
+    // 文件阿哈希
+    fileHash2: "",
   },
   mutations: {
     updateIsSelectAll(state, flag) {

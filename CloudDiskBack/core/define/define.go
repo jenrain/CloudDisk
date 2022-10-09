@@ -27,6 +27,8 @@ var TencentSecretID = "AKIDKhz72nfNruISRDqEOJ0d5JJ9nHbXJyPc"
 // HuaweiObsEndPoint 华为云对象存储
 var HuaweiObsEndPoint = "https://obs.cn-east-3.myhuaweicloud.com"
 var HuaweiObsDawnLoadUrl = "https://data-storage95.obs.cn-east-3.myhuaweicloud.com"
+var HuaweiObsBucket = "data-storage95"
+var HuaweiObsBucketRootFolder = "cloud-disk"
 var HuaweiObsAK = "OCGWMVEBEZ9ONDWM5OCB"
 var HuaweiObsSK = "ukVqAjesme9oKJPSG7sNIkto7JR9l1HYl6PNs4Z9"
 

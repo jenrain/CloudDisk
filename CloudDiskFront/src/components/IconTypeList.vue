@@ -762,53 +762,7 @@ export default {
 
     // 点击下载文件的回调
     downloadCurrentFile(type, item) {
-      // let url;
-      // // 循环的数组，里面的item是索引
-      // let arr = [];
-      // if (type == "current") {
-      //   arr.push(item);
-      // } else if (type == "mult") {
-      //   arr = this.selectFiles;
-      // }
-      // arr.forEach((i) => {
-      //   // 循环执行的速度太快，watch来不及监听 这里通过定时器放到异步执行
-      //   setTimeout(async () => {
-      //     if (i.filetype == "video" || i.filetype == "audio") {
-      //       console.log("i: ", i);
-      //       // 请求url
-      //       let res = await this.$request(
-      //         "/eduoss/fileoss/getPlayAuth?isList=" + i.videoId,
-      //         "",
-      //         "post"
-      //       );
-      //       console.log(res);
-      //       url = res.data.data.urlList[0].url;
-      //     } else {
-      //       url = "/downloadfile/" + i.url.split("com/")[1];
-      //     }
-      //     this.$store.commit("updateCurrentDownloadFileInfo", {
-      //       name: i.name + "." + i.type,
-      //       url,
-      //     });
-      //   });
-      // });
-      // window.location.href = item.path;
-      this.$axios.get(item.path, { responseType: "blob" }).then((res) => {
-        let blob = res.data;
-        let url = URL.createObjectURL(blob);
-        // download(url);
-        console.log(url);
-        let a = document.querySelector("#downloadCurrentFile");
-        this.downloadFileInfo.name = "你好";
-        this.downloadFileInfo.url = url;
-        // console.log(a);
-        //   console.log(this.downloadFileInfo.url.split("com")[1]);
-        this.$nextTick(() => {
-          a.click();
-          // 用完释放URL对象
-          URL.revokeObjectURL(url);
-        });
-      });
+      window.open(item.path + "?attname=" + item.name);
     },
 
     // 移动文件

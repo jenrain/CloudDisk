@@ -35,16 +35,16 @@ func (l *UserFileNameUpdateLogic) UserFileNameUpdate(req *types.UserFileNameUpda
 	if err != nil {
 		return nil, errorx.NewDefaultError(err.Error())
 	}
-	// 修改repository_pool中的名称
-	ur := &models.UserRepository{}
-	err = l.svcCtx.DB.Table("user_repository").Where("identity = ?", req.Identity).Find(ur).Error
-	if err != nil {
-		return nil, errorx.NewDefaultError(err.Error())
-	}
-	err = l.svcCtx.DB.Table("repository_pool").Where("identity = ?", ur.RepositoryIdentity).Update("name", req.Name).Error
-	if err != nil {
-		return nil, errorx.NewDefaultError(err.Error())
-	}
+	//// 修改repository_pool中的名称
+	//ur := &models.UserRepository{}
+	//err = l.svcCtx.DB.Table("user_repository").Where("identity = ?", req.Identity).Find(ur).Error
+	//if err != nil {
+	//	return nil, errorx.NewDefaultError(err.Error())
+	//}
+	//err = l.svcCtx.DB.Table("repository_pool").Where("identity = ?", ur.RepositoryIdentity).Update("name", req.Name).Error
+	//if err != nil {
+	//	return nil, errorx.NewDefaultError(err.Error())
+	//}
 	resp = &types.UserFileNameUpdateResponse{
 		Success: true,
 		Name:    req.Name,

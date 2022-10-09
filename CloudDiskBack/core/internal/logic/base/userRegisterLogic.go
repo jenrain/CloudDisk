@@ -52,7 +52,7 @@ func (l *UserRegisterLogic) UserRegister(req *types.UserRegisterRequest) (resp *
 	user := &models.UserBasic{
 		Identity: tools.GetUUID(),
 		Name:     req.Name,
-		Password: tools.MD5(req.Password),
+		Password: tools.StringToMD5(req.Password),
 		Email:    req.Email,
 	}
 	err = l.svcCtx.DB.Create(user).Count(&cnt).Error

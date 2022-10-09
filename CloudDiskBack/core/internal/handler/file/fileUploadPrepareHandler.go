@@ -18,7 +18,7 @@ func FileUploadPrepareHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		}
 
 		l := file.NewFileUploadPrepareLogic(r.Context(), svcCtx)
-		resp, err := l.FileUploadPrepare(&req)
+		resp, err := l.FileUploadPrepare(&req, r.Header.Get("UserIdentity"))
 		if err != nil {
 			httpx.Error(w, err)
 		} else {

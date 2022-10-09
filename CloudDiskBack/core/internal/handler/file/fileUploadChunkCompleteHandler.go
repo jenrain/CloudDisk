@@ -16,9 +16,8 @@ func FileUploadChunkCompleteHandler(svcCtx *svc.ServiceContext) http.HandlerFunc
 			httpx.Error(w, err)
 			return
 		}
-
 		l := file.NewFileUploadChunkCompleteLogic(r.Context(), svcCtx)
-		resp, err := l.FileUploadChunkComplete(&req)
+		resp, err := l.FileUploadChunkComplete(&req, r.Header.Get("UserIdentity"))
 		if err != nil {
 			httpx.Error(w, err)
 		} else {

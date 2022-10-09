@@ -2,7 +2,6 @@ package tools
 
 import (
 	"bytes"
-	"context"
 	"core/define"
 	"core/errorx"
 	"crypto/md5"
@@ -13,20 +12,28 @@ import (
 	"github.com/huaweicloud/huaweicloud-sdk-go-obs/obs"
 	"github.com/jordan-wright/email"
 	uuid "github.com/satori/go.uuid"
-	"github.com/tencentyun/cos-go-sdk-v5"
 	"io"
 	"math/rand"
+	"mime/multipart"
 	"net/http"
 	"net/smtp"
-	"net/url"
 	"path"
 	"strconv"
 	"strings"
 	"time"
 )
 
-func MD5(s string) string {
+// StringToMD5 将字符串做MD5哈希
+func StringToMD5(s string) string {
 	return fmt.Sprintf("%x", md5.Sum([]byte(s)))
+}
+
+// FileToMD5 将文件做MD5哈希
+func FileToMD5(file multipart.File, size int64) (string, error) {
+	var err error
+	b := make([]byte, size)
+	_, err = file.Read(b)
+	return StringToMD5(string(b)), err
 }
 
 func GenerateToken(id int, identity string, name string, second int64) (string, error) {
@@ -96,8 +103,8 @@ func GetUUID() string {
 	return uuid.NewV4().String()
 }
 
-// CosUpload 上传文件到Cos
-func CosUpload(r *http.Request) (string, error) {
+// ObsUpload 上传文件到Cos
+func ObsUpload(r *http.Request) (string, error) {
 	//u, _ := url.Parse(define.TencentCosBucket)
 	//b := &cos.BaseURL{BucketURL: u}
 	//c := cos.NewClient(b, &http.Client{
@@ -146,71 +153,110 @@ func CosUpload(r *http.Request) (string, error) {
 	return define.HuaweiObsDawnLoadUrl + "/" + key, nil
 }
 
-// CosInitPartUpload 分片上传初始化
-func CosInitPartUpload(ext string) (string, string, error) {
-	u, _ := url.Parse(define.TencentCosBucket)
-	b := &cos.BaseURL{BucketURL: u}
-	c := cos.NewClient(b, &http.Client{
-		Transport: &cos.AuthorizationTransport{
-			SecretID:  define.TencentSecretID,  // 替换为用户的 SecretId，请登录访问管理控制台进行查看和管理，https://console.cloud.tencent.com/cam/capi
-			SecretKey: define.TencentSecretKey, // 替换为用户的 SecretKey，请登录访问管理控制台进行查看和管理，https://console.cloud.tencent.com/cam/capi
-		},
-	})
+// 创建ObsClient结构体
+var obsClient, _ = obs.New(define.HuaweiObsAK, define.HuaweiObsSK, define.HuaweiObsEndPoint)
 
-	name := "cloud-disk/" + GetUUID() + ext
-	// 可选opt,如果不是必要操作，建议上传文件时不要给单个文件设置权限，避免达到限制。若不设置默认继承桶的权限。
-	v, _, err := c.Object.InitiateMultipartUpload(context.Background(), name, nil)
-	if err != nil {
-		return "", "", err
-	}
-	return name, v.UploadID, err
+// ObsInitPartUpload 分片上传初始化
+func ObsInitPartUpload(ext string) (string, string, error) {
+	//u, _ := url.Parse(define.TencentCosBucket)
+	//b := &cos.BaseURL{BucketURL: u}
+	//c := cos.NewClient(b, &http.Client{
+	//	Transport: &cos.AuthorizationTransport{
+	//		SecretID:  define.TencentSecretID,  // 替换为用户的 SecretId，请登录访问管理控制台进行查看和管理，https://console.cloud.tencent.com/cam/capi
+	//		SecretKey: define.TencentSecretKey, // 替换为用户的 SecretKey，请登录访问管理控制台进行查看和管理，https://console.cloud.tencent.com/cam/capi
+	//	},
+	//})
+	//
+	//name := "cloud-disk/" + GetUUID() + ext
+	//// 可选opt,如果不是必要操作，建议上传文件时不要给单个文件设置权限，避免达到限制。若不设置默认继承桶的权限。
+	//v, _, err := c.Object.InitiateMultipartUpload(context.Background(), name, nil)
+	//if err != nil {
+	//	return "", "", err
+	//}
+	//return name, v.UploadID, err
+	inputInit := &obs.InitiateMultipartUploadInput{}
+	inputInit.Bucket = define.HuaweiObsBucket
+	inputInit.Key = define.HuaweiObsBucketRootFolder + "/" + GetUUID() + ext
+	outputInit, err := obsClient.InitiateMultipartUpload(inputInit)
+	return inputInit.Key, outputInit.UploadId, err
 }
 
-// CosPartUpload 分片上传
-func CosPartUpload(r *http.Request) (string, error) {
-	u, _ := url.Parse(define.TencentCosBucket)
-	b := &cos.BaseURL{BucketURL: u}
-	c := cos.NewClient(b, &http.Client{
-		Transport: &cos.AuthorizationTransport{
-			SecretID:  define.TencentSecretID,  // 替换为用户的 SecretId，请登录访问管理控制台进行查看和管理，https://console.cloud.tencent.com/cam/capi
-			SecretKey: define.TencentSecretKey, // 替换为用户的 SecretKey，请登录访问管理控制台进行查看和管理，https://console.cloud.tencent.com/cam/capi
-		},
-	})
-	name := r.PostForm.Get("name")
-	UploadID := r.PostForm.Get("upload_id")
+// ObsPartUpload 分片上传
+func ObsPartUpload(r *http.Request) (string, error) {
+	//u, _ := url.Parse(define.TencentCosBucket)
+	//b := &cos.BaseURL{BucketURL: u}
+	//c := cos.NewClient(b, &http.Client{
+	//	Transport: &cos.AuthorizationTransport{
+	//		SecretID:  define.TencentSecretID,  // 替换为用户的 SecretId，请登录访问管理控制台进行查看和管理，https://console.cloud.tencent.com/cam/capi
+	//		SecretKey: define.TencentSecretKey, // 替换为用户的 SecretKey，请登录访问管理控制台进行查看和管理，https://console.cloud.tencent.com/cam/capi
+	//	},
+	//})
+	//name := r.PostForm.Get("name")
+	//UploadID := r.PostForm.Get("upload_id")
+	//f, _, err := r.FormFile("file")
+	//if err != nil {
+	//	return "", err
+	//}
+	//
+	//buf := bytes.NewBuffer(nil)
+	//io.Copy(buf, f)
+	//
+	//// opt可选
+	//partNumber, _ := strconv.Atoi(r.PostForm.Get("part_number"))
+	//resp, err := c.Object.UploadPart(
+	//	context.Background(), name, UploadID, partNumber, bytes.NewBuffer(buf.Bytes()), nil,
+	//)
+	//if err != nil {
+	//	return "", err
+	//}
+	//return strings.Trim(resp.Header.Get("ETag"), "\""), nil
+	key := r.PostForm.Get("key")
+	uploadId := r.PostForm.Get("upload_id")
 	f, _, err := r.FormFile("file")
 	if err != nil {
-		return "", err
+		return "", errorx.NewDefaultError(err.Error())
 	}
-
 	buf := bytes.NewBuffer(nil)
 	io.Copy(buf, f)
-
-	// opt可选
 	partNumber, _ := strconv.Atoi(r.PostForm.Get("part_number"))
-	resp, err := c.Object.UploadPart(
-		context.Background(), name, UploadID, partNumber, bytes.NewBuffer(buf.Bytes()), nil,
-	)
-	if err != nil {
-		return "", err
-	}
-	return strings.Trim(resp.Header.Get("ETag"), "\""), nil
+	var outputUploadPart *obs.UploadPartOutput
+	outputUploadPart, err = obsClient.UploadPart(&obs.UploadPartInput{
+		Bucket:     define.HuaweiObsBucket,
+		Key:        key,
+		PartNumber: partNumber,
+		UploadId:   uploadId,
+		Body:       bytes.NewBuffer(buf.Bytes()),
+	})
+	return strings.Trim(outputUploadPart.ETag, "\""), err
+	//fmt.Println("key: ", key)
+	//fmt.Println("upload_id: ", uploadId)
+	//fmt.Println("part_number: ", partNumber)
+	//return "", nil
 }
 
-// CosPartUploadComplete 分片上传完成
-func CosPartUploadComplete(name, uploadId string, cs []cos.Object) error {
-	u, _ := url.Parse(define.TencentCosBucket)
-	b := &cos.BaseURL{BucketURL: u}
-	c := cos.NewClient(b, &http.Client{
-		Transport: &cos.AuthorizationTransport{
-			SecretID:  define.TencentSecretID,  // 替换为用户的 SecretId，请登录访问管理控制台进行查看和管理，https://console.cloud.tencent.com/cam/capi
-			SecretKey: define.TencentSecretKey, // 替换为用户的 SecretKey，请登录访问管理控制台进行查看和管理，https://console.cloud.tencent.com/cam/capi
-		},
-	})
-	opt := &cos.CompleteMultipartUploadOptions{}
-	opt.Parts = append(opt.Parts, cs...)
-	_, _, err := c.Object.CompleteMultipartUpload(
-		context.Background(), name, uploadId, opt,
-	)
-	return err
+// ObsPartUploadComplete 分片上传完成
+func ObsPartUploadComplete(key, uploadId string, obsObjects []obs.Part) (string, error) {
+	//u, _ := url.Parse(define.TencentCosBucket)
+	//b := &cos.BaseURL{BucketURL: u}
+	//c := cos.NewClient(b, &http.Client{
+	//	Transport: &cos.AuthorizationTransport{
+	//		SecretID:  define.TencentSecretID,  // 替换为用户的 SecretId，请登录访问管理控制台进行查看和管理，https://console.cloud.tencent.com/cam/capi
+	//		SecretKey: define.TencentSecretKey, // 替换为用户的 SecretKey，请登录访问管理控制台进行查看和管理，https://console.cloud.tencent.com/cam/capi
+	//	},
+	//})
+	//opt := &cos.CompleteMultipartUploadOptions{}
+	//opt.Parts = append(opt.Parts, cs...)
+	//_, _, err := c.Object.CompleteMultipartUpload(
+	//	context.Background(), name, uploadId, opt,
+	//)
+	//return err
+	inputCompleteMultipart := &obs.CompleteMultipartUploadInput{}
+	inputCompleteMultipart.Bucket = define.HuaweiObsBucket
+	inputCompleteMultipart.Key = key
+	inputCompleteMultipart.UploadId = uploadId
+
+	inputCompleteMultipart.Parts = append(inputCompleteMultipart.Parts, obsObjects...)
+	var err error
+	_, err = obsClient.CompleteMultipartUpload(inputCompleteMultipart)
+	return define.HuaweiObsDawnLoadUrl + "/" + key, err
 }

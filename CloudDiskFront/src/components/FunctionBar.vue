@@ -3,6 +3,7 @@
     <div class="FunctionBar">
       <div class="left">
         <el-upload
+          :show-file-list="false"
           multiple
           action=""
           :http-request="uploadFiles"
@@ -60,6 +61,9 @@
 </template>
 
 <script>
+import SparkMD5 from "spark-md5";
+// 文件分片的大小
+const chunkSize = 5;
 export default {
   name: "FunctionBar",
   data() {
@@ -71,6 +75,14 @@ export default {
       isMultBtnsShow: false,
       // 搜索内容
       searchContent: "",
+      // 上传文件的hash值
+      fileHash: null,
+      // obs返回的key
+      key: null,
+      // obs返回的uploadId
+      uploadId: null,
+      // obs返回的etag
+      etagArr: [],
     };
   },
   props: {
@@ -95,14 +107,44 @@ export default {
     },
   },
   methods: {
+    refresh() {
+      // this.isSelectAll = !this.isSelectAll;
+      // this.$store.commit("updateIsSelectAll", this.isSelectAll);
+    },
+    // 点击新建的回调
+    createFolder() {
+      // 先禁用新建按钮，避免重复点击
+      this.isCreateAble = false;
+      // 更新新建文件夹状态到vuex
+      this.$store.commit("updateIsCreateFolder", true);
+    },
     // 上传文件
     uploadFiles(params) {
-      console.log("开始上传文件");
+      // 根据文件大小决定上传类型
+      // 得到文件大小
+      var fileSize = (params.file.size / 1048576).toFixed(2);
+      if (fileSize <= 5) {
+        // 普通上传
+        this.commonUpload(params.file);
+      } else {
+        // 分片上传前的准备
+        console.log("开始分片上传");
+        this.fileToMD5(params.file)
+        setTimeout(() => {
+          console.log("文件哈希值：", this.fileHash);
+          this.chunkUploadPrepare(this.fileHash, params.file.name, this.$store.state.currentParentId, params.file, fileSize);
+        },300);
+        
+      }
+    },
+    // 普通上传
+    commonUpload(file) {
+      console.log("开始普通上传文件");
       const formData = new FormData();
-      formData.append("file", params.file);
+      formData.append("file", file);
       formData.append("parent_id", this.$store.state.currentParentId);
       this.$axios.defaults.headers.common["Authorization"] =
-        window.localStorage.getItem("token");
+      window.localStorage.getItem("token");
       this.$axios({
         url: "/file/upload",
         method: "post",
@@ -129,30 +171,152 @@ export default {
           }
         });
           this.$message.success("文件上传成功!");
-          // // this.$emit("getListData");
-          // this.$emit("pushUploadData", res.data.data.file);
-
-          // // 更新用户存储空间
-          // let userInfo = this.$store.state.userInfo;
-          // userInfo.neicun += response.data.file.size;
-          // this.$store.commit("updateUserInfo", userInfo);
-          // this.$router.go(0);
         } else {
-          this.$message.error("上传失败!");
+          this.$message.error(res.data.msg);
         }
       });
     },
-    refresh() {
-      // this.isSelectAll = !this.isSelectAll;
-      // this.$store.commit("updateIsSelectAll", this.isSelectAll);
+    // chunkUpload(file) {
+
+    // },
+    chunkUploadPrepare(md5, name, parent_id, file, fileSize) {
+      // MD5      string `json:"md5"`
+      // Name     string `json:"name"`
+      // ParentId int    `json:"parent_id"`
+      this.$axios.defaults.headers.common["Authorization"] =
+        window.localStorage.getItem("token");
+      this.$axios({
+        url: "/file/upload/prepare",
+        method: "post",
+        data: {
+          md5: md5,
+          name: name,
+          parent_id: parent_id,
+        },
+      }).then((res) => {
+        console.log(res.data);
+        if (res.data.success) {
+          // 需要分片上传
+          console.log("uploadId: ", res.data.upload_id);
+          console.log("key: ", res.data.key);
+          this.uploadId = res.data.upload_id;
+          this.key = res.data.key;
+          // 开始分片上传
+          this.chunkUploadStart(file, fileSize);
+        } else {
+          // 文件秒传成功
+          if (res.data.msg == "文件上传成功") {
+            this.$message.success(res.data.msg);
+          } else {
+            this.$message.error(res.data.msg);
+          }
+          
+        }
+      });
     },
-    // 点击新建的回调
-    createFolder() {
-      // 先禁用新建按钮，避免重复点击
-      this.isCreateAble = false;
-      // 更新新建文件夹状态到vuex
-      this.$store.commit("updateIsCreateFolder", true);
+    chunkUploadStart(file, fileSize) {
+      console.log("分片上传开始");
+      this.etagArr = new Array();
+      // 分片上传是否失败的标记变量
+      var isChunkUploadFail = false;
+      // 得到文件分片的数量
+      var chunkCount = Math.ceil(fileSize / chunkSize);
+      console.log("文件大小：", fileSize);
+      console.log("文件分块数量：", chunkCount);
+      // console.log("文件：", file.raw);
+      for (let i = 0; i < chunkCount; i++) {
+        // 分片开始的位置
+        let start = i * chunkSize * 1024 * 1024;
+        // 分片结束的位置
+        let end = Math.min(file.size, start + chunkSize * 1024 * 1024)
+        // 截取分片的文件
+        let _chunkFile = file.slice(start, end);
+        console.log("开始上传第", i + 1, "个分片");
+        let formData = new FormData();
+        formData.append("file", _chunkFile);
+        formData.append("part_number", i + 1)
+        formData.append("key", this.key);
+        formData.append("upload_id", this.uploadId);
+        this.$axios.defaults.headers.common["Authorization"] =
+          window.localStorage.getItem("token");
+          this.$axios({
+            url: "/file/upload/chunk",
+            method: "post",
+            data: formData,
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }).then((res) => {
+            if (res.data.success) {
+              console.log("第几块文件上传成功：", i + 1);
+              console.log("对应的etag：", res.data.etag);
+              this.etagArr.push({
+                part_number: i + 1,
+                etag: res.data.etag,
+              });
+            } else {
+              isChunkUploadFail = true;
+            }
+          });
+          if (isChunkUploadFail == true) {
+            break;
+          }
+      }
+      setTimeout(() => {
+        if (isChunkUploadFail == true) {
+          this.$message.error("文件上传失败");
+        } else {
+          // 分片文件都上传成功，告诉后端
+          this.chunkUploadComplete(file);
+        }
+      }, chunkCount * 1000);
     },
+    chunkUploadComplete(file) {
+      console.log("分片文件都上传成功，告诉后端");
+      console.log("etagArr数组的长度：", this.etagArr.length);
+      for (let i = 0; i < this.etagArr.length; i++) {
+        console.log("上传的文件块：", this.etagArr[i].part_number, ", 分块文件的哈希值：", this.etagArr[i].etag);
+      }
+      this.$axios.defaults.headers.common["Authorization"] =
+        window.localStorage.getItem("token");
+      this.$axios({
+        url: "/file/upload/chunk/complete",
+        method: "post",
+        data: {
+          key: this.key,
+          upload_id: this.uploadId,
+          obs_objects: this.etagArr,
+          parent_id: this.$store.state.currentParentId,
+          hash: this.fileHash,
+          name: file.name,
+          size: file.size,
+        },
+      }).then((res) => {
+        console.log(res.data);
+        if (res.data.success) {
+          this.$axios.defaults.headers.common["Authorization"] = window.localStorage.getItem("token");
+          this.$axios({
+            url: "/user/file/list",
+            method: "post",
+            data: {
+              id: this.$store.state.currentParentId,
+            }
+        }).then((res) => {
+          console.log(res.data);
+          if (res.data.success) {
+            this.$emit("update:listData", res.data.files_list);
+          } else {
+            this.$message.error(res.data.msg);
+          }
+        });
+          this.$message.success("文件上传成功");
+
+        } else {
+          this.$message.error("文件上传失败");
+        }
+      });
+    },
+    
 
     // 返回上一级文件夹
     goLastFolder() {
@@ -230,7 +394,15 @@ export default {
         this.$store.commit("updateShowType", "icon");
       }
     },
+    fileToMD5(file) {
+        const fileReader = new FileReader()
+        fileReader.readAsBinaryString(file);
+         fileReader.onload = (e) => {
+          this.fileHash = SparkMD5.hashBinary(e.target.result);
+       }
+    },
   },
+
   watch: {
 
     // 监听是否正在创建文件夹

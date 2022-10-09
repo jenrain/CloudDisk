@@ -167,37 +167,43 @@ type GetCurrentParentIdResponse struct {
 }
 
 type FileUploadPrepareRequest struct {
-	MD5  string `json:"md5"`
-	Name string `json:"name"`
-	Ext  string `json:"ext"`
+	MD5      string `json:"md5"`
+	Name     string `json:"name"`
+	ParentId int    `json:"parent_id"`
 }
 
 type FileUploadPrepareResponse struct {
-	Identity string `json:"identity"`
 	UploadId string `json:"upload_id"`
-	Name     string `json:"name"`
+	Key      string `json:"key"`
+	Success  bool   `json:"success"`
 }
 
 type FileUploadChunkRequest struct {
-	Name       string `json:"name"`
-	UploadId   string `json:"upload_id"`
-	PartNumber int    `json:"part_number"`
+	Key        string `json:"key,optional"`
+	UploadId   string `json:"upload_id,optional"`
+	PartNumber int    `json:"part_number,optional"`
 }
 
 type FileUploadChunkResponse struct {
-	Etag string `json:"etag"` // MD5
+	Etag    string `json:"etag"` // MD5
+	Success bool   `json:"success"`
 }
 
 type FileUploadChunkCompleteRequest struct {
-	Name       string      `json:"name"`
-	UploadId   string      `json:"upload_id"`
-	CosObjects []CosObject `json:"cos_objects"`
+	Key        string      `json:"key,optional"`
+	UploadId   string      `json:"upload_id,optional"`
+	ObsObjects []ObsObject `json:"obs_objects,optional"`
+	ParentId   int         `json:"parent_id,optional"`
+	Hash       string      `json:"hash,optional"`
+	Name       string      `json:"name,optional"`
+	Size       int64       `json:"size,optional"`
 }
 
 type FileUploadChunkCompleteResponse struct {
+	Success bool `json:"success"`
 }
 
-type CosObject struct {
+type ObsObject struct {
 	PartNumber int    `json:"part_number"`
 	ETag       string `json:"etag"`
 }
