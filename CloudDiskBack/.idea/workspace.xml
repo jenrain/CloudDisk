@@ -5,15 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c1a5f771-de8e-43a3-bdcf-c8d19f5d02b3" name="变更" comment="完成对文件的CRUD">
+      <change afterPath="$PROJECT_DIR$/apiService/download/cloud-disk/2e03b6bd-d4c1-42fb-97e6-48536fa9b9ab.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apiService/download/cloud-disk/35120f20-a7f4-4008-bfbe-95700c055c3d.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apiService/download/cloud-disk/398dd18f-738e-44fb-89f7-5f9ce5a0630d.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apiService/download/cloud-disk/67d1f5c7-7f72-44f5-bce3-fbefe9eb493b.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apiService/download/cloud-disk/898d1369-3c64-4656-8ed4-cb202e6fc7cd.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apiService/download/cloud-disk/a85c57b7-e207-4114-aa94-94807002ecc2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apiService/download/cloud-disk/ab93ee81-102e-4580-ad7a-55403364ed3d.jpg" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/apiService/download/cloud-disk/c607f8c3-b217-47b1-805a-e9c2c4b564f6.jpg" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/apiService/download/cloud-disk/cea13b10-58c7-4e9e-9707-a8273efba00b.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apiService/download/cloud-disk/d2fef66b-6939-4399-80e9-bb25b78152e0.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apiService/download/cloud-disk/ee9480b9-aefd-49e0-8d18-ef4ff2b18704.jpg" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/apiService/etc/core-api.yaml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/apiService/internal/handler/file/getFilePathHandler.go" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/apiService/internal/logic/file/getFilePathLogic.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apiService/internal/logic/file/userFileListLogic.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apiService/models/CacheDB.go" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/apiService/models/obs.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apiService/models/payload.go" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/apiService/mq/heartbeat.go" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/apiService/mq/locate.go" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/apiService/mq/rabbitmq.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apiService/mq/watchBinLog.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apiService/test/cache_test.go" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/apiService/test/mq_test.go" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/apiService/test/randnumber_test.go" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/apiService/tools/tools.go" afterDir="false" />
@@ -96,6 +110,55 @@
       <change afterPath="$PROJECT_DIR$/dataService6/mq/heartbeat.go" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/dataService6/mq/locate.go" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/dataService6/mq/rabbitmq.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/0063bfd5b420cb828d038adfedf86200.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/018c2f183d51326ad381dda719fc58fc.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/1766993d43098f3ab5526bc87f066a3b.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/1928c3ad164cf4d250a75b0ad928412c.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/1ddbc9c43635c588d57c942f5e94fa0f.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/2624e96a0d7388dcce0c967f6db99839.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/2a305aa277dd98e8e9daa904207debb4.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/2f1dbeb0ebc813c46c08be4bb9e757ff.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/3272bc802c6a594c3063b004195ede60.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/3a937cd4d20ac8753cbd5103369c86c5.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/3aad1622597a54baf8a8be4960e95707.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/3c59575aef331f8c2c737a02cfbd5243.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/3d5c9a7fbe2da0ad4eccefc26e8b0551.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/4328504455ea2beff42adf27df83d4d9.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/450a6e53fea7fce062554ba64580711c.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/48e8d9fdca14b4c414357e19a285721f.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/52f73d0413f776ff0632121b639c29e6.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/5947da37817d9b0464cde9a76947ee33.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/5ba9ab84052ebf5d7cbf96eada8c3e5c.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/5ff2453411c3e92e44c1bdecdb52e727.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/66528cbfbd93ca83cc7e92c57a30daa6.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/66bf71034c9c4b3a7510c033a7b206db.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/6df261dd3121326dcf7354e42bfec33c.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/6e59db556e810bca459a493ef61433a4.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/76228e7213f4cea138b5fc7893b7da73.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/77ac0cf426e634fdd69b5caca8c2342e.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/77ff73e0f10536ec3e1db5efe5721954.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/79d3f71ecb6036e99e48097351bf2034.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/7b8a6156b2f1553d1de00b95bbd604ae.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/82fa697af61b53940a3069546c9c66e0.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/8c36765f3c4e6c06e99c671a287461da.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/95a6cd7965ccb3dd8d80437e0279b39f.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/969a2e8fa7eaeb23b12936c1632df47d.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/98d797127a1635081735ead1a2d6021c.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/9fee64247884c86d09e0c3ef46ee9778.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/a22c5295a4178288213b9d750a494468.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/ab833579a889fd6e4989580cddb627fa.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/ae8633dd2e22cf9dc094d7a7c9e51326.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/b695ded10bf1caf3ac6796797f11affe.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/b769c9f6a4dec29aecab917496ea9885.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/b7bf6245ed40384cac4e2ed58cd5dc09.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/bb4dc84d324dbd894033d0995a695a0b.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/c4d047dbbfebb099f50d6c6f837da79f.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/d37f3dba4865aab848a2fc221d0d6c3c.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/d3da4196ec142d88cc25ee0211a074ce.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/d56c0d25dac73bc62c074f9536319e44.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/daf63ea033969a97ea2dea713c0d19af.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/dc00e5d02c983770e1ee35b9a1a45105.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudDiskFront/node_modules/.cache/babel-loader/eb6487caa5ca4302778f29b49b8737d2.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/core.api" beforeDir="false" afterPath="$PROJECT_DIR$/apiService/apiService.api" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/core.go" beforeDir="false" afterPath="$PROJECT_DIR$/apiService/apiService.go" afterDir="false" />
@@ -135,7 +198,7 @@
       <change beforePath="$PROJECT_DIR$/core/internal/logic/file/getCurrentParentIdLogic.go" beforeDir="false" afterPath="$PROJECT_DIR$/apiService/internal/logic/file/getCurrentParentIdLogic.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/internal/logic/file/getFileDetailLogic.go" beforeDir="false" afterPath="$PROJECT_DIR$/apiService/internal/logic/file/getFileDetailLogic.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/internal/logic/file/userFileDeleteLogic.go" beforeDir="false" afterPath="$PROJECT_DIR$/apiService/internal/logic/file/userFileDeleteLogic.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/internal/logic/file/userFileListLogic.go" beforeDir="false" afterPath="$PROJECT_DIR$/apiService/internal/logic/file/userFileListLogic.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/internal/logic/file/userFileListLogic.go" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/core/internal/logic/file/userFileMoveLogic.go" beforeDir="false" afterPath="$PROJECT_DIR$/apiService/internal/logic/file/userFileMoveLogic.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/internal/logic/file/userFileNameUpdateLogic.go" beforeDir="false" afterPath="$PROJECT_DIR$/apiService/internal/logic/file/userFileNameUpdateLogic.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/internal/logic/file/userFolderCreateLogic.go" beforeDir="false" afterPath="$PROJECT_DIR$/apiService/internal/logic/file/userFolderCreateLogic.go" afterDir="false" />
@@ -145,7 +208,7 @@
       <change beforePath="$PROJECT_DIR$/core/internal/middleware/authMiddleware.go" beforeDir="false" afterPath="$PROJECT_DIR$/apiService/internal/middleware/authMiddleware.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/internal/svc/servicecontext.go" beforeDir="false" afterPath="$PROJECT_DIR$/apiService/internal/svc/servicecontext.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/internal/types/types.go" beforeDir="false" afterPath="$PROJECT_DIR$/apiService/internal/types/types.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/models/CacheDB.go" beforeDir="false" afterPath="$PROJECT_DIR$/apiService/models/CacheDB.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/models/CacheDB.go" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/core/models/DB.go" beforeDir="false" afterPath="$PROJECT_DIR$/apiService/models/DB.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/models/repository_pool.go" beforeDir="false" afterPath="$PROJECT_DIR$/apiService/models/repository_pool.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/models/user_basic.go" beforeDir="false" afterPath="$PROJECT_DIR$/apiService/models/user_basic.go" afterDir="false" />
