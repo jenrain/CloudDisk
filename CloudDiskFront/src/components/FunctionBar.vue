@@ -83,6 +83,10 @@ export default {
       uploadId: null,
       // obs返回的etag
       etagArr: [],
+      // 分片上传的node
+      node: null,
+      // 分片上传文件的uuid
+      fileIdentity: "",
     };
   },
   props: {
@@ -125,6 +129,7 @@ export default {
       var fileSize = (params.file.size / 1048576).toFixed(2);
       if (fileSize <= 5) {
         // 普通上传
+        // this.$message('文件正在上传...');
         this.commonUpload(params.file);
       } else {
         // 分片上传前的准备
@@ -134,7 +139,6 @@ export default {
           console.log("文件哈希值：", this.fileHash);
           this.chunkUploadPrepare(this.fileHash, params.file.name, this.$store.state.currentParentId, params.file, fileSize);
         },300);
-        
       }
     },
     // 普通上传
@@ -201,6 +205,8 @@ export default {
           console.log("key: ", res.data.key);
           this.uploadId = res.data.upload_id;
           this.key = res.data.key;
+          this.node = res.data.node;
+          this.fileIdentity = res.data.file_identity;
           // 开始分片上传
           this.chunkUploadStart(file, fileSize);
         } else {
@@ -237,6 +243,7 @@ export default {
         formData.append("part_number", i + 1)
         formData.append("key", this.key);
         formData.append("upload_id", this.uploadId);
+        formData.append("node", this.node);
         this.$axios.defaults.headers.common["Authorization"] =
           window.localStorage.getItem("token");
           this.$axios({
@@ -269,14 +276,25 @@ export default {
           // 分片文件都上传成功，告诉后端
           this.chunkUploadComplete(file);
         }
-      }, chunkCount * 1000);
+      }, chunkCount * 2000);
     },
     chunkUploadComplete(file) {
       console.log("分片文件都上传成功，告诉后端");
       console.log("etagArr数组的长度：", this.etagArr.length);
+      console.log("待上传的fileIdentity: ", this.fileIdentity);
       for (let i = 0; i < this.etagArr.length; i++) {
         console.log("上传的文件块：", this.etagArr[i].part_number, ", 分块文件的哈希值：", this.etagArr[i].etag);
       }
+      // let formData = new FormData();
+      //   formData.append("key", this.key);
+      //   formData.append("upload_id", this.uploadId)
+      //   formData.append("obs_objects", this.etagArr);
+      //   formData.append("parent_id", this.$store.state.currentParentId);
+      //   formData.append("hash", this.fileHash);
+      //   formData.append("name", file.name);
+      //   formData.append("size", file.size);
+      //   formData.append("node", this.node);
+      //   formData.append("file_identity", this.fileIdentity);
       this.$axios.defaults.headers.common["Authorization"] =
         window.localStorage.getItem("token");
       this.$axios({
@@ -290,7 +308,9 @@ export default {
           hash: this.fileHash,
           name: file.name,
           size: file.size,
-        },
+          node: this.node,
+          file_identity: this.fileIdentity,
+        }
       }).then((res) => {
         console.log(res.data);
         if (res.data.success) {

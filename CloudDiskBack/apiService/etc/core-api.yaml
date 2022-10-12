@@ -1,0 +1,24 @@
+Name: apiService-api
+Host: 0.0.0.0
+Port: 8888
+MaxBytes: 8388608
+Timeout: 10000
+
+Mysql:
+  DataSource: root:501124524@(116.62.177.68)/cloud-disk?charset=utf8&parseTime=True&loc=Local
+
+Redis:
+  Password: "501124524"
+  Addr: 116.62.177.68:63791
+
+RabbitMQ:
+  # 是否开启文件异步转移(默认同步)
+  AsyncTransferEnable: false
+  # rabbitmq服务的入口url
+  RabbitURL: "amqp://guest:guest@116.62.177.68:5672/"
+  # apiServers
+  ApiServers: "apiServers"
+  # dataServers
+  DataServers: "dataServers"
+  # 用于接收mysql的binlog日志
+  CanalExchange: "canal.deleteCache"

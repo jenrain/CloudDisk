@@ -137,7 +137,7 @@
           //   跳转至主界面
           this.$router.push("/index");
           } else {
-            this.$message.warning("登录失败,账号或密码错误!");
+            this.$message.warning(res.data.msg);
           }
         });
       },
@@ -155,6 +155,9 @@
           console.log(res.data);
           if (res.data.success) {
             this.startCountDown();
+            this.$message.success("验证码发送成功，请注意查收");
+          } else {
+            this.$message.error(res.data.msg);
           }
         });
       },
@@ -194,7 +197,7 @@
               name: "",
             };
           } else {
-            this.$message.error("注册失败,请稍后重试!");
+            this.$message.error(res.data.msg);
           }
         });
       },

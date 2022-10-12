@@ -17,7 +17,20 @@ goctl api go -api core.api -dir . --style=goZero
 **启动服务**
 
 ```shell
-go run core.go -f etc/core-api.yaml
+# 启动rabbitmq
+docker run -d --hostname rabbit-svr --name rabbit -p 5672:5672 -p 15672:15672 -p 25672:25672 -v /opt/module/rabbitmq/data:/var/lib/rabbitmq rabbitmq:management
+
+# 启动canal
+cd /opt/module/canal/bin/
+./startup.sh
+
+# 启动前端命令
+npm run serve
+
+# 启动API层的服务
+go run apiService.go -f etc/core-api.yaml
+# 启动Data层的服务
+go run dataService.go -f etc/dataservice-api.yaml
 ```
 
 ## 使用到的工具
