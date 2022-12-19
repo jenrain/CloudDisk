@@ -31,6 +31,7 @@ npm run serve
 go run apiService.go -f etc/core-api.yaml
 # 启动Data层的服务
 go run dataService.go -f etc/dataservice-api.yaml
+# 后端服务可以直接双击start.bat启动
 ```
 
 ## 使用到的工具

@@ -29,6 +29,5 @@ func main() {
 
 	fmt.Printf("Starting server at %s:%d...\n", config.Conf.Host, config.Conf.Port)
 	go mq.StartHeartbeat()
-	go mq.StartLocate()
 	server.Start()
 }

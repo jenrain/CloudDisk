@@ -5,7 +5,7 @@ import (
 	"github.com/streadway/amqp"
 )
 
-// RabbitMQ RabbitMQ结构图
+// RabbitMQ RabbitMQ结构
 type RabbitMQ struct {
 	channel  *amqp.Channel
 	Name     string

@@ -45,4 +45,5 @@ func main() {
 	go mq.WatchBinLog(config.Conf)
 
 	server.Start()
+
 }
